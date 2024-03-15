@@ -1,0 +1,23 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Set ARGOS_PACKAGES_DIR",
+            "type": "shell",
+            "command": "export ARGOS_PACKAGES_DIR=\"/media/mehdi/Local Disk2/Programming/Python/argostranslate/models\"",
+            "problemMatcher": []
+        },
+        {
+            "label": "Generate grpc code",
+            "type": "shell",
+            "command": "python -m grpc_tools.protoc -I./src/interfaces/grpc --python_out=./src/interfaces/grpc --pyi_out=./src/interfaces/grpc --grpc_python_out=./src/interfaces/grpc src/interfaces/grpc/argostranslate.proto",
+            "problemMatcher": []
+        },
+        {
+            "label": "Format all",
+            "type": "shell",
+            "command": "black .",
+            "problemMatcher": []
+        }
+    ]
+}

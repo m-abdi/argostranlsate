@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+service ArgosTranslate {
+   rpc translate (Request) returns (Result);
+}
+
+message Request {
+  string text = 1;
+  string from_lang = 2;
+  string to_lang = 3;
+}
+
+
+message Result {
+    string text = 1;
+}

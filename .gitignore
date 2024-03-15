@@ -1,0 +1,13 @@
+# environments
+.venv
+venv
+python-venv
+.pytest_cache
+__pycache__
+
+# scripts
+liara*
+
+
+# secrets
+.env
