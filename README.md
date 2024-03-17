@@ -35,7 +35,7 @@ pip install -r requirements.txt
 - Ideal for applications requiring remote procedure calls.
 - To start the gRPC server:
  ```
-python src/interfaces/grpc/argostranslate.py
+python -m src.interfaces.grpc.server
  ```
 > Note: The default port for the server is 50051.
 

@@ -3,7 +3,9 @@
 import grpc
 
 
-import argostranslate_pb2 as argostranslate__pb2
+from .argostranslate_pb2 import Request, Result
+
+from src.translation.translator import translator_client
 
 
 class ArgosTranslateStub(object):
@@ -17,8 +19,8 @@ class ArgosTranslateStub(object):
         """
         self.translate = channel.unary_unary(
             "/ArgosTranslate/translate",
-            request_serializer=argostranslate__pb2.Request.SerializeToString,
-            response_deserializer=argostranslate__pb2.Result.FromString,
+            request_serializer=Request.SerializeToString,
+            response_deserializer=Result.FromString,
         )
 
 
@@ -27,17 +29,22 @@ class ArgosTranslateServicer(object):
 
     def translate(self, request, context):
         """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        translation = translator_client.translate(
+            request.text, request.from_lang, request.to_lang
+        )
+        context.set_code(grpc.StatusCode.OK)
+        context.set_details(
+            f"translation from {request.from_lang} to {request.to_lang}"
+        )
+        return Result(text=translation)
 
 
 def add_ArgosTranslateServicer_to_server(servicer, server):
     rpc_method_handlers = {
         "translate": grpc.unary_unary_rpc_method_handler(
             servicer.translate,
-            request_deserializer=argostranslate__pb2.Request.FromString,
-            response_serializer=argostranslate__pb2.Result.SerializeToString,
+            request_deserializer=Request.FromString,
+            response_serializer=Result.SerializeToString,
         ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -67,8 +74,8 @@ class ArgosTranslate(object):
             request,
             target,
             "/ArgosTranslate/translate",
-            argostranslate__pb2.Request.SerializeToString,
-            argostranslate__pb2.Result.FromString,
+            Request.SerializeToString,
+            Result.FromString,
             options,
             channel_credentials,
             insecure,

@@ -2,7 +2,7 @@ from concurrent import futures
 from os import getenv
 from dotenv import load_dotenv
 
-from argostranslate_pb2_grpc import (
+from .argostranslate_pb2_grpc import (
     add_ArgosTranslateServicer_to_server,
     ArgosTranslateServicer,
     grpc,

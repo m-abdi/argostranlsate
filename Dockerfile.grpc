@@ -19,4 +19,4 @@ RUN export ARGOS_DEVICE_TYPE="cpu"
 
 COPY . .
 
-CMD [ "python", "src/interfaces/grpc/argostranslate.py" ]
+CMD [ "python", "-m", "src.interfaces.grpc.server" ]
